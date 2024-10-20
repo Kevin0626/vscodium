@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091,2154
+echo "Preparing WasomCodeX"
 
 set -e
 
@@ -80,15 +81,16 @@ if [[ "${OS_NAME}" == "linux" ]]; then
 elif [[ "${OS_NAME}" == "windows" ]]; then
   # TODO: Should be replaced with upstream URL once https://github.com/nodejs/node-gyp/pull/2825
   # gets merged.
+
   rm -rf .build/node-gyp
   mkdir -p .build/node-gyp
   cd .build/node-gyp
 
   git config --global user.email "$( echo "${GITHUB_USERNAME}" | awk '{print tolower($0)}' )-ci@not-real.com"
   git config --global user.name "${GITHUB_USERNAME} CI"
-  git clone https://github.com/nodejs/node-gyp.git .
-  git checkout v10.0.1
-  npm install
+  # git clone https://github.com/nodejs/node-gyp.git .
+  # git checkout v10.0.1
+  # npm install
 
   npm_config_node_gyp="$( pwd )/bin/node-gyp.js"
   export npm_config_node_gyp
@@ -101,6 +103,9 @@ elif [[ "${OS_NAME}" == "windows" ]]; then
 fi
 
 npm ci
+
+echo "npm ci done..."
+echo ""
 
 setpath() {
   local jsonTmp
@@ -131,11 +136,12 @@ setpath "product" "keyboardShortcutsUrlWin" "https://go.microsoft.com/fwlink/?li
 setpath "product" "licenseUrl" "https://github.com/VSCodium/vscodium/blob/master/LICENSE"
 setpath_json "product" "linkProtectionTrustedDomains" '["https://open-vsx.org"]'
 setpath "product" "releaseNotesUrl" "https://go.microsoft.com/fwlink/?LinkID=533483#vscode"
-setpath "product" "reportIssueUrl" "https://github.com/VSCodium/vscodium/issues/new"
+setpath "product" "reportIssueUrl" "https://gitee.com/wasome/codex/issues/new"
 setpath "product" "requestFeatureUrl" "https://go.microsoft.com/fwlink/?LinkID=533482"
 setpath "product" "tipsAndTricksUrl" "https://go.microsoft.com/fwlink/?linkid=852118"
 setpath "product" "twitterUrl" "https://go.microsoft.com/fwlink/?LinkID=533687"
 
+DISABLE_UPDATE="yes"
 if [[ "${DISABLE_UPDATE}" != "yes" ]]; then
   setpath "product" "updateUrl" "https://vscodium.now.sh"
   setpath "product" "downloadUrl" "https://github.com/VSCodium/vscodium/releases"
@@ -165,21 +171,21 @@ if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
   setpath "product" "win32x64UserAppId" "{{20F79D0D-A9AC-4220-9A81-CE675FFB6B41}"
   setpath "product" "win32arm64UserAppId" "{{2E362F92-14EA-455A-9ABD-3E656BBBFE71}"
 else
-  setpath "product" "nameShort" "VSCodium"
-  setpath "product" "nameLong" "VSCodium"
-  setpath "product" "applicationName" "codium"
-  setpath "product" "linuxIconName" "vscodium"
+  setpath "product" "nameShort" "WasomCodeX"
+  setpath "product" "nameLong" "WasomCodeX"
+  setpath "product" "applicationName" "CodeX"
+  setpath "product" "linuxIconName" "WasomCodeX"
   setpath "product" "quality" "stable"
-  setpath "product" "urlProtocol" "vscodium"
+  setpath "product" "urlProtocol" "WasomCodeX"
   setpath "product" "serverApplicationName" "codium-server"
-  setpath "product" "serverDataFolderName" ".vscodium-server"
+  setpath "product" "serverDataFolderName" ".WasomCodeX-server"
   setpath "product" "darwinBundleIdentifier" "com.vscodium"
   setpath "product" "win32AppUserModelId" "VSCodium.VSCodium"
-  setpath "product" "win32DirName" "VSCodium"
-  setpath "product" "win32MutexName" "vscodium"
-  setpath "product" "win32NameVersion" "VSCodium"
-  setpath "product" "win32RegValueName" "VSCodium"
-  setpath "product" "win32ShellNameShort" "VSCodium"
+  setpath "product" "win32DirName" "WasomCodeX"
+  setpath "product" "win32MutexName" "WasomCodeX"
+  setpath "product" "win32NameVersion" "WasomCodeX"
+  setpath "product" "win32RegValueName" "WasomCodeX"
+  setpath "product" "win32ShellNameShort" "WasomCodeX"
   setpath "product" "win32AppId" "{{763CBF88-25C6-4B10-952F-326AE657F16B}"
   setpath "product" "win32x64AppId" "{{88DA3577-054F-4CA1-8122-7D820494CFFB}"
   setpath "product" "win32arm64AppId" "{{67DEE444-3D04-4258-B92A-BC1F0FF2CAE4}"
@@ -199,22 +205,22 @@ cp package.json{,.bak}
 setpath "package" "version" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\1/p" )"
 setpath "package" "release" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\2/p" )"
 
-replace 's|Microsoft Corporation|VSCodium|' package.json
+replace 's|Microsoft Corporation|WasomCodeX|' package.json
 
 # announcements
 replace "s|\\[\\/\\* BUILTIN_ANNOUNCEMENTS \\*\\/\\]|$( tr -d '\n' < ../announcements-builtin.json )|" src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts
 
 ../undo_telemetry.sh
 
-replace 's|Microsoft Corporation|VSCodium|' build/lib/electron.js
-replace 's|Microsoft Corporation|VSCodium|' build/lib/electron.ts
-replace 's|([0-9]) Microsoft|\1 VSCodium|' build/lib/electron.js
-replace 's|([0-9]) Microsoft|\1 VSCodium|' build/lib/electron.ts
+replace 's|Microsoft Corporation|WasomCodeX|' build/lib/electron.js
+replace 's|Microsoft Corporation|WasomCodeX|' build/lib/electron.ts
+replace 's|([0-9]) Microsoft|\1 WasomCodeX|' build/lib/electron.js
+replace 's|([0-9]) Microsoft|\1 WasomCodeX|' build/lib/electron.ts
 
 if [[ "${OS_NAME}" == "linux" ]]; then
   # microsoft adds their apt repo to sources
   # unless the app name is code-oss
-  # as we are renaming the application to vscodium
+  # as we are renaming the application to WasomCodeX
   # we need to edit a line in the post install template
   if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
     sed -i "s/code-oss/codium-insiders/" resources/linux/debian/postinst.template
@@ -224,30 +230,32 @@ if [[ "${OS_NAME}" == "linux" ]]; then
 
   # fix the packages metadata
   # code.appdata.xml
-  sed -i 's|Visual Studio Code|VSCodium|g' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/VSCodium/vscodium#download-install|' resources/linux/code.appdata.xml
+  sed -i 's|Visual Studio Code|WasomCodeX|g' resources/linux/code.appdata.xml
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/WasomCodeX/WasomCodeX#download-install|' resources/linux/code.appdata.xml
   sed -i 's|https://code.visualstudio.com/home/home-screenshot-linux-lg.png|https://vscodium.com/img/vscodium.png|' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com|https://vscodium.com|' resources/linux/code.appdata.xml
+  sed -i 's|https://code.visualstudio.com|https://codex.wa-edge.com|' resources/linux/code.appdata.xml
 
   # control.template
   sed -i 's|Microsoft Corporation <vscode-linux@microsoft.com>|VSCodium Team https://github.com/VSCodium/vscodium/graphs/contributors|'  resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com|https://vscodium.com|' resources/linux/debian/control.template
-  sed -i 's|Visual Studio Code|VSCodium|g' resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/VSCodium/vscodium#download-install|' resources/linux/debian/control.template
+  sed -i 's|https://code.visualstudio.com|https://codex.wa-edge.com|' resources/linux/debian/control.template
+  sed -i 's|Visual Studio Code|WasomCodeX|g' resources/linux/debian/control.template
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/WasomCodeX/WasomCodeX#download-install|' resources/linux/debian/control.template
 
   # code.spec.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/VSCodium/vscodium#download-install|' resources/linux/rpm/code.spec.template
-  sed -i 's|Microsoft Corporation|VSCodium Team|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|VSCodium Team https://github.com/VSCodium/vscodium/graphs/contributors|' resources/linux/rpm/code.spec.template
-  sed -i 's|https://code.visualstudio.com|https://vscodium.com|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code|VSCodium|' resources/linux/rpm/code.spec.template
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/WasomCodeX/WasomCodeX#download-install|' resources/linux/rpm/code.spec.template
+  sed -i 's|Microsoft Corporation|WasomCodeX Team|' resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|WasomCodeX Team https://github.com/WasomCodeX/WasomCodeX/graphs/contributors|' resources/linux/rpm/code.spec.template
+  sed -i 's|https://code.visualstudio.com|https://WasomCodeX.com|' resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code|WasomCodeX|' resources/linux/rpm/code.spec.template
 
   # snapcraft.yaml
-  sed -i 's|Visual Studio Code|VSCodium|'  resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code|WasomCodeX|'  resources/linux/rpm/code.spec.template
 elif [[ "${OS_NAME}" == "windows" ]]; then
   # code.iss
-  sed -i 's|https://code.visualstudio.com|https://vscodium.com|' build/win32/code.iss
-  sed -i 's|Microsoft Corporation|VSCodium|' build/win32/code.iss
+  sed -i 's|https://code.visualstudio.com|https://help.wa-edge.com|' build/win32/code.iss
+  sed -i 's|Microsoft Corporation|WasomCodeX|' build/win32/code.iss
 fi
 
 cd ..
+
+echo "Done preparing WasomCodeX"
