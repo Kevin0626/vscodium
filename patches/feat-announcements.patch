@@ -74,7 +74,7 @@ index 664c55b..43f9e2e 100644
 +			const showExtras = this.configurationService.getValue<boolean>('workbench.welcomePage.extraAnnouncements');
 +
 +			if (showExtras) {
-+				const branch = this.productService.quality === 'insider' ? 'insider' : 'master';
++				// const branch = this.productService.quality === 'insider' ? 'insider' : 'master';
 +				await fetch(`https://raw.githubusercontent.com/Kevin0626/vscodium/WasmCodeX/announcements-extra.json`)
 +					.then(async res => {
 +						if (res.ok) {

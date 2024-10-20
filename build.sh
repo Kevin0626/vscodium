@@ -3,6 +3,8 @@
 
 set -ex
 
+SHOULD_BUILD_REH="no"
+SHOULD_BUILD_REH_WEB="no"
 . version.sh
 
 if [[ "${SHOULD_BUILD}" == "yes" ]]; then
