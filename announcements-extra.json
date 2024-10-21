@@ -1,7 +1,12 @@
 [
   {
     "id": "#1234",
-    "title": "欢迎使用WasmCodeX",
+    "title": "欢迎使用WasmCodeX在线帮助",
     "url": "http://help.wa-edge.com/"
+  },
+  {
+    "id": "#1235",
+    "title": "WasmCodeX开源社区与例程",
+    "url": "https://gitee.com/wasome"
   }
 ]
