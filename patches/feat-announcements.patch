@@ -62,7 +62,7 @@ index 664c55b..43f9e2e 100644
 +		if (this.announcementList) { this.announcementList.dispose(); }
 +
 +		const announcementList = this.announcementList = new GettingStartedIndexList({
-+			title: localize('announcements', "WasomeCodeX Announcements"),
++			title: localize('announcements', "Announcements"),
 +			klass: 'announcements',
 +			limit: 5,
 +			empty: $('.empty-recent', {}, localize('noAnnouncements', "There are no current announcements.")),
