@@ -5,8 +5,8 @@
 # to run with Bash: "C:\Program Files\Git\bin\bash.exe" ./build/build.sh
 ###
 
-export APP_NAME="WasomCodeX"
-export BINARY_NAME="WasomCodeX"
+export APP_NAME="Automation Control System"
+export BINARY_NAME="Automation Control System"
 export CI_BUILD="no"
 export SHOULD_BUILD="yes"
 export SKIP_ASSETS="yes"

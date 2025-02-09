@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091,2154
-echo "Preparing WasomCodeX"
+echo "Preparing Automation Control System"
 
 set -e
 
@@ -127,7 +127,7 @@ setpath_json() {
 cp product.json{,.bak}
 
 setpath "product" "checksumFailMoreInfoUrl" "https://go.microsoft.com/fwlink/?LinkId=828886"
-setpath "product" "documentationUrl" "http://help.wa-edge.com/"
+setpath "product" "documentationUrl" "http://help.new-auto-system.com/"
 
 # set the market place to microsoft
 # setpath_json "product" "extensionsGallery" '{"serviceUrl": "https://open-vsx.org/vscode/gallery", "itemUrl": "https://open-vsx.org/vscode/item"}'
@@ -138,7 +138,7 @@ setpath "product" "keyboardShortcutsUrlLinux" "https://go.microsoft.com/fwlink/?
 setpath "product" "keyboardShortcutsUrlMac" "https://go.microsoft.com/fwlink/?linkid=832143"
 setpath "product" "keyboardShortcutsUrlWin" "https://go.microsoft.com/fwlink/?linkid=832145"
 setpath "product" "licenseUrl" "https://github.com/VSCodium/vscodium/blob/master/LICENSE"
-setpath_json "product" "linkProtectionTrustedDomains" '["https://open-vsx.org", "https://marketplace.visualstudio.com", "http://help.wa-edge.com", "http://www.wansheng-intelli.com"]'
+setpath_json "product" "linkProtectionTrustedDomains" '["https://open-vsx.org", "https://marketplace.visualstudio.com", "http://help.new-auto-system.com", "http://www.wansheng-intelli.com"]'
 setpath "product" "releaseNotesUrl" "https://go.microsoft.com/fwlink/?LinkID=533483#vscode"
 setpath "product" "reportIssueUrl" "https://gitee.com/wasome/codex/issues/new"
 setpath "product" "requestFeatureUrl" "https://go.microsoft.com/fwlink/?LinkID=533482"
@@ -175,21 +175,21 @@ if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
   setpath "product" "win32x64UserAppId" "{{20F79D0D-A9AC-4220-9A81-CE675FFB6B41}"
   setpath "product" "win32arm64UserAppId" "{{2E362F92-14EA-455A-9ABD-3E656BBBFE71}"
 else
-  setpath "product" "nameShort" "WasomCodeX"
-  setpath "product" "nameLong" "WasomCodeX"
+  setpath "product" "nameShort" "Automation Control System"
+  setpath "product" "nameLong" "Automation Control System"
   setpath "product" "applicationName" "CodeX"
-  setpath "product" "linuxIconName" "WasomCodeX"
+  setpath "product" "linuxIconName" "Automation Control System"
   setpath "product" "quality" "stable"
-  setpath "product" "urlProtocol" "WasomCodeX"
+  setpath "product" "urlProtocol" "Automation Control System"
   setpath "product" "serverApplicationName" "codium-server"
-  setpath "product" "serverDataFolderName" ".WasomCodeX-server"
+  setpath "product" "serverDataFolderName" ".Automation Control System-server"
   setpath "product" "darwinBundleIdentifier" "com.vscodium"
   setpath "product" "win32AppUserModelId" "VSCodium.VSCodium"
-  setpath "product" "win32DirName" "WasomCodeX"
-  setpath "product" "win32MutexName" "WasomCodeX"
-  setpath "product" "win32NameVersion" "WasomCodeX"
-  setpath "product" "win32RegValueName" "WasomCodeX"
-  setpath "product" "win32ShellNameShort" "WasomCodeX"
+  setpath "product" "win32DirName" "Automation Control System"
+  setpath "product" "win32MutexName" "Automation Control System"
+  setpath "product" "win32NameVersion" "Automation Control System"
+  setpath "product" "win32RegValueName" "Automation Control System"
+  setpath "product" "win32ShellNameShort" "Automation Control System"
   setpath "product" "win32AppId" "{{763CBF88-25C6-4B10-952F-326AE657F16B}"
   setpath "product" "win32x64AppId" "{{88DA3577-054F-4CA1-8122-7D820494CFFB}"
   setpath "product" "win32arm64AppId" "{{67DEE444-3D04-4258-B92A-BC1F0FF2CAE4}"
@@ -209,22 +209,22 @@ cp package.json{,.bak}
 setpath "package" "version" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\1/p" )"
 setpath "package" "release" "$( echo "${RELEASE_VERSION}" | sed -n -E "s/^(.*)\.([0-9]+)(-insider)?$/\2/p" )"
 
-replace 's|Microsoft Corporation|WasomCodeX|' package.json
+replace 's|Microsoft Corporation|Automation Control System|' package.json
 
 # announcements
 replace "s|\\[\\/\\* BUILTIN_ANNOUNCEMENTS \\*\\/\\]|$( tr -d '\n' < ../announcements-builtin.json )|" src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts
 
 ../undo_telemetry.sh
 
-replace 's|Microsoft Corporation|WasomCodeX|' build/lib/electron.js
-replace 's|Microsoft Corporation|WasomCodeX|' build/lib/electron.ts
-replace 's|([0-9]) Microsoft|\1 WasomCodeX|' build/lib/electron.js
-replace 's|([0-9]) Microsoft|\1 WasomCodeX|' build/lib/electron.ts
+replace 's|Microsoft Corporation|Automation Control System|' build/lib/electron.js
+replace 's|Microsoft Corporation|Automation Control System|' build/lib/electron.ts
+replace 's|([0-9]) Microsoft|\1 Automation Control System|' build/lib/electron.js
+replace 's|([0-9]) Microsoft|\1 Automation Control System|' build/lib/electron.ts
 
 if [[ "${OS_NAME}" == "linux" ]]; then
   # microsoft adds their apt repo to sources
   # unless the app name is code-oss
-  # as we are renaming the application to WasomCodeX
+  # as we are renaming the application to Automation Control System
   # we need to edit a line in the post install template
   if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
     sed -i "s/code-oss/codium-insiders/" resources/linux/debian/postinst.template
@@ -234,32 +234,32 @@ if [[ "${OS_NAME}" == "linux" ]]; then
 
   # fix the packages metadata
   # code.appdata.xml
-  sed -i 's|Visual Studio Code|WasomCodeX|g' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/WasomCodeX/WasomCodeX#download-install|' resources/linux/code.appdata.xml
+  sed -i 's|Visual Studio Code|Automation Control System|g' resources/linux/code.appdata.xml
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/Automation Control System/Automation Control System#download-install|' resources/linux/code.appdata.xml
   sed -i 's|https://code.visualstudio.com/home/home-screenshot-linux-lg.png|https://vscodium.com/img/vscodium.png|' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com|https://codex.wa-edge.com|' resources/linux/code.appdata.xml
+  sed -i 's|https://code.visualstudio.com|https://codex.new-auto-system.com|' resources/linux/code.appdata.xml
 
   # control.template
   sed -i 's|Microsoft Corporation <vscode-linux@microsoft.com>|VSCodium Team https://github.com/VSCodium/vscodium/graphs/contributors|'  resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com|https://codex.wa-edge.com|' resources/linux/debian/control.template
-  sed -i 's|Visual Studio Code|WasomCodeX|g' resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/WasomCodeX/WasomCodeX#download-install|' resources/linux/debian/control.template
+  sed -i 's|https://code.visualstudio.com|https://codex.new-auto-system.com|' resources/linux/debian/control.template
+  sed -i 's|Visual Studio Code|Automation Control System|g' resources/linux/debian/control.template
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/Automation Control System/Automation Control System#download-install|' resources/linux/debian/control.template
 
   # code.spec.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/WasomCodeX/WasomCodeX#download-install|' resources/linux/rpm/code.spec.template
-  sed -i 's|Microsoft Corporation|WasomCodeX Team|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|WasomCodeX Team https://github.com/WasomCodeX/WasomCodeX/graphs/contributors|' resources/linux/rpm/code.spec.template
-  sed -i 's|https://code.visualstudio.com|https://WasomCodeX.com|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code|WasomCodeX|' resources/linux/rpm/code.spec.template
+  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://github.com/Automation Control System/Automation Control System#download-install|' resources/linux/rpm/code.spec.template
+  sed -i 's|Microsoft Corporation|Automation Control System Team|' resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|Automation Control System Team https://github.com/Automation Control System/Automation Control System/graphs/contributors|' resources/linux/rpm/code.spec.template
+  sed -i 's|https://code.visualstudio.com|https://Automation Control System.com|' resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code|Automation Control System|' resources/linux/rpm/code.spec.template
 
   # snapcraft.yaml
-  sed -i 's|Visual Studio Code|WasomCodeX|'  resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code|Automation Control System|'  resources/linux/rpm/code.spec.template
 elif [[ "${OS_NAME}" == "windows" ]]; then
   # code.iss
-  sed -i 's|https://code.visualstudio.com|https://help.wa-edge.com|' build/win32/code.iss
-  sed -i 's|Microsoft Corporation|WasomCodeX|' build/win32/code.iss
+  sed -i 's|https://code.visualstudio.com|https://help.new-auto-system.com|' build/win32/code.iss
+  sed -i 's|Microsoft Corporation|Automation Control System|' build/win32/code.iss
 fi
 
 cd ..
 
-echo "Done preparing WasomCodeX"
+echo "Done preparing Automation Control System"
